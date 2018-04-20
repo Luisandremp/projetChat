@@ -7,8 +7,12 @@ import javax.swing.JFrame;
 import java.awt.SystemColor;
 import java.awt.Color;
 import javax.swing.JTextField;
+
+import dao.UserBean;
+
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.awt.event.ActionEvent;
 import javax.swing.JLabel;
 import javax.swing.ImageIcon;
@@ -43,6 +47,19 @@ public class IHMSwing {
 	public IHMSwing() {
 		initialize();
 	}
+	 
+	//Gestion des Refresh de chaque fenetre du Chat 
+	 
+	
+	 public void updateTextField(boolean visible) {
+	        textField.setText("");
+	    }
+	 
+	  
+	 
+	    public void setVisible(boolean visible) {
+	        frmChat.setVisible(visible);
+	    }
 
 	/**
 	 * Initialize the contents of the frame.
@@ -94,7 +111,7 @@ public class IHMSwing {
 		JButton btnSendButton = new JButton("");
 		btnSendButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-					System.out.println(textField.getText());					
+					System.out.println(textField.getText());
 			}
 		});
 		 btnSendButton.setBounds(439, 856, 46, 40);
