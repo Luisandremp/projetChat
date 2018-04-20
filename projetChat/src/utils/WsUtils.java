@@ -55,11 +55,11 @@ public class WsUtils {
 		return gson.fromJson(json, type);
 		
 	}
-	public static ArrayList<UserBean> updateUserList(MessageBean usr) throws Exception{
+	public static ArrayList<UserBean> updateUserList(UserBean user) throws Exception{
 		String url = URL_BASE+URL_SET_USER;;
 		// Request
 		Gson gson = new Gson();
-		String paramJson = gson.toJson(usr);
+		String paramJson = gson.toJson(user);
 		String json = HTTPUtils.sendPostOkHttpRequest(url, paramJson);
 
 		java.lang.reflect.Type type = new TypeToken<ArrayList<MessageBean>>() {
