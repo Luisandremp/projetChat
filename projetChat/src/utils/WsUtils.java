@@ -42,7 +42,7 @@ public class WsUtils {
 
 		return gson.fromJson(json, type);		
 	}
-	public static ArrayList<MessageBean> updateMessageList(MessageBean msg) throws Exception{
+	public static ArrayList<MessageBean> sendMessage(MessageBean msg) throws Exception{
 		String url = URL_BASE+URL_SET_MESSAGE;;
 		// Request
 		Gson gson = new Gson();
@@ -55,7 +55,7 @@ public class WsUtils {
 		return gson.fromJson(json, type);
 		
 	}
-	public static ArrayList<UserBean> updateUserList(UserBean user) throws Exception{
+	public static ArrayList<UserBean> addUser(UserBean user) throws Exception{
 		String url = URL_BASE+URL_SET_USER;;
 		// Request
 		Gson gson = new Gson();
