@@ -7,35 +7,27 @@ import dao.UserBean;
 
 public class dbUtils {
 
-	private static ArrayList<MessageBean> listArrayMessage;
-	private static ArrayList<UserBean> listArrayUser;
+	private static ArrayList<MessageBean> listArrayMessage = new ArrayList<MessageBean>();
+	private static ArrayList<UserBean> listArrayUser = new ArrayList<UserBean>();
 
-	public static boolean pushUser(UserBean user) {
-		return true;
-	}
-
-	public static boolean pushMessage(MessageBean message) {
-		listArrayMessage.add(message);
-		System.out.println("push");
-		return true;
-	}
-
-	public static ArrayList<MessageBean> getListArrayMessage() {
+	public static ArrayList<MessageBean> getMessageList() {
 		return listArrayMessage;
 	}
 
-	public static ArrayList<UserBean> getListArrayUser() {
+	public static ArrayList<UserBean> getUserList() {
 		return listArrayUser;
 	}
 
-	public static void addMessage(MessageBean msg) {
+	public static boolean insertValue(MessageBean msg) {
 
 		listArrayMessage.add(msg);
+		return true;
 
 	}
 
-	public static void addUser(UserBean user) {
+	public static boolean insertValue(UserBean user) {
 
 		listArrayUser.add(user);
+		return true;
 	}
 }

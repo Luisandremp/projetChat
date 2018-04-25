@@ -32,20 +32,19 @@ public class WS {
 
 	}
 
-	// http://localhost:8080/projetChatServer/rest/MonService/viewMessageList
-	@Path("/viewMessageList")
+	// http://localhost:8080/projetChatServer/rest/MonService/Message
+	@Path("/Message")
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
 
 	public Response getMessageList() {
 
 		Gson gson = GSON;
-
-		return Response.status(200).entity(gson.toJson(dbUtils.getListArrayMessage())).build();
+		return Response.status(200).entity(gson.toJson(dbUtils.getMessageList())).build();
 	}
 
-	// http://localhost:8080/projetChatServer/rest/MonService/viewUserList
-	@Path("/viewUserList")
+	// http://localhost:8080/projetChatServer/rest/MonService/User
+	@Path("/User")
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
 
@@ -57,20 +56,37 @@ public class WS {
 
 	}
 
-	// http://localhost:8080/projetChatServer/rest/MonService/updateMessageList
-	@Path("/updateMessageList")
+	// http://localhost:8080/projetChatServer/rest/MonService/sendMessage
+	@Path("/sendMessage")
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 
-	public Response updateMessage(String receive) {
+	public Response sendMessage(String receive) {
 
 		System.out.println(receive);
 
 		Gson gson = GSON;
 		MessageBean msg = gson.fromJson(receive, MessageBean.class);
-		dbUtils.pushMessage(msg);
-		return Response.status(200).entity(gson.toJson(dbUtils.getListArrayMessage())).build();
+		dbUtils.insertValue(msg);
+		return Response.status(200).entity(gson.toJson(dbUtils.getMessageList())).build();
+
+	}
+
+	// http://localhost:8080/projetChatServer/rest/MonService/addUser
+	@Path("/addUser")
+	@POST
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+
+	public Response sendUser(String receive) {
+
+		System.out.println(receive);
+
+		Gson gson = GSON;
+		UserBean user = gson.fromJson(receive, UserBean.class);
+		dbUtils.insertValue(user);
+		return Response.status(200).entity(gson.toJson(dbUtils.getUserList())).build();
 
 	}
 }
