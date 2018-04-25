@@ -4,6 +4,15 @@ public class MessageBean {
 	private String content;
 	private UserBean author;
 
+	public MessageBean() {
+		this("test");
+	}
+
+	public MessageBean(String content) {
+
+		this.content = content;
+	}
+
 	public String getContent() {
 		return content;
 	}
