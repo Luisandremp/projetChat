@@ -12,6 +12,7 @@ import javax.ws.rs.core.Response;
 
 import com.google.gson.Gson;
 
+import dao.ErrorBean;
 import dao.MessageBean;
 import dao.UserBean;
 import model.dbUtils;
@@ -39,8 +40,7 @@ public class WS {
 
 	public Response getMessageList() {
 
-		Gson gson = GSON;
-		return Response.status(200).entity(gson.toJson(dbUtils.getMessageList())).build();
+		return Response.status(200).entity(GSON.toJson(dbUtils.getMessageList())).build();
 	}
 
 	// http://localhost:8080/projetChatServer/rest/MonService/User
@@ -51,8 +51,7 @@ public class WS {
 	public Response getUserList() {
 
 		ArrayList<UserBean> listUser = new ArrayList<UserBean>();
-		Gson gson = GSON;
-		return Response.status(200).entity(gson.toJson(listUser)).build();
+		return Response.status(200).entity(GSON.toJson(listUser)).build();
 
 	}
 
@@ -64,12 +63,21 @@ public class WS {
 
 	public Response sendMessage(String receive) {
 
-		System.out.println(receive);
+		try {
+			System.out.println(receive);
 
-		Gson gson = GSON;
-		MessageBean msg = gson.fromJson(receive, MessageBean.class);
-		dbUtils.insertValue(msg);
-		return Response.status(200).entity(gson.toJson(dbUtils.getMessageList())).build();
+			MessageBean msg = GSON.fromJson(receive, MessageBean.class);
+			VerifyUtils.checkMessage(msg);
+			dbUtils.insertValue(msg);
+			return Response.status(200).entity(GSON.toJson(dbUtils.getMessageList())).build();
+
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			ErrorBean errorBean = new ErrorBean(e.getMessage());
+			return Response.status(253).entity(GSON.toJson(errorBean)).build();
+
+		}
 
 	}
 
@@ -83,10 +91,9 @@ public class WS {
 
 		System.out.println(receive);
 
-		Gson gson = GSON;
-		UserBean user = gson.fromJson(receive, UserBean.class);
+		UserBean user = GSON.fromJson(receive, UserBean.class);
 		dbUtils.insertValue(user);
-		return Response.status(200).entity(gson.toJson(dbUtils.getUserList())).build();
+		return Response.status(200).entity(GSON.toJson(dbUtils.getUserList())).build();
 
 	}
 }
