@@ -1,5 +1,6 @@
 package utils;
 
+import dao.ErrorBean;
 import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -41,7 +42,14 @@ public class HTTPUtils {
 
 		if (response.code() < 200 || response.code() > 299) {
 			throw new Exception("Réponse du serveur incorrect : " + response.code());
-		} else {
+		}
+		else if(response.code() == 253){
+			ErrorBean errorBean =	WsUtils.gson.fromJson(response.body().string(), ErrorBean.class);
+			throw new Exception("Une erreur est survenue : " + errorBean.getMsg());
+
+		}
+		else {
+
 			// Résultat de la requete.
 			return response.body().string();
 		}
